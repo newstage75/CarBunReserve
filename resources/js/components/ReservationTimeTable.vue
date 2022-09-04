@@ -1,21 +1,22 @@
 <template> 
 <div>
-        <table class="table table-bordered text-center">
+        <table class="table table-bordered text-center" >
             <tr>
-                <th>車種</th>
-                <th  v-for="n in 24" :key="n-1"  colspan="4">{{n-1}}時</th>
+                <th class="border">車種</th>
+                <th class="border" v-for="n in 24" :key="n-1"  colspan="4">{{n-1}}時</th>
         </tr>
         <tr>
-            <th>車A</th>
-            <td v-for="m in td_time" :key="m[0]" @mousedown="onMousedown(1,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])"></td>
+            <th class="border">車A</th>
+            <!-- keyの数字が被らないよう*100をして工夫 -->
+            <td class="border" v-for="m in td_time" :key="m[0]*100+m[1]" @mousedown="onMousedown(1,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])" ></td>
         </tr>
         <tr>
-            <th>車B</th>
-            <td v-for="m in td_time" :key="m[0]" @mousedown="onMousedown(2,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])"></td>
+            <th class="border">車B</th>
+            <td class="border" v-for="m in td_time" :key="m[0]*100+m[1]" @mousedown="onMousedown(2,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])"></td>
         </tr>
         <tr>
-            <th>車C</th>
-            <td v-for="m in td_time" :key="m[0]" @mousedown="onMousedown(3,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])"></td>
+            <th class="border">車C</th>
+            <td class="border" v-for="m in td_time" :key="m[0]*100+m[1]" @mousedown="onMousedown(3,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])"></td>
         </tr>
         </table>
 
@@ -30,8 +31,7 @@
                         <option value="3">車C</option>
                     </select>
                 </td>
-            </tr>
-            <tr>
+                <span class="pe-2">:</span>
                 <th>開始時刻</th>
                 <td>
                     <select name="start_hour" id="start_hour">
@@ -45,8 +45,7 @@
                     </select>
                     分
                 </td>
-            </tr>
-            <tr>
+                <span class="ps-2 pe-2">　〜　</span>
                 <th>終了時刻</th>
                 <td>
                     <select name="end_hour" id="end_hour">
@@ -89,7 +88,7 @@
             e_h:"",
             e_m:"",
 
-            //ガントチャート用時刻(もしかしたら不要)
+            //ガントチャート用時刻
             td_time:td_time,
             td_span:td_span,
             }
@@ -99,24 +98,16 @@
                 this.mousedown_time = h+"時"+m+"分";
                 this.room = room;
                 // セレクトボックスのvalue変更
-                document.getElementById('room_select').value = room;
                 document.getElementById('room_sel').value = room;
-                document.getElementById('hour1').value = h;
-                document.getElementById('mint1').value = m;
                 //まずスタートタイムに代入（マウスアップの時刻と比較し開始時刻・終了時刻を決定）
                 this.s_h = h;
                 this.s_m = m;
                 //テスト用（のちに削除）
-                // document.getElementById('start_hour').value = this.s_h;
-                // document.getElementById('start_mint').value = this.s_m;
                 console.log(td_time);
                 console.log(td_span);
                 },
             onMouseup(h,m){
                 this.mouseup_time = h+"時"+m+"分";
-                // セレクトボックスのvalue変更
-                document.getElementById('hour2').value = h;
-                document.getElementById('mint2').value = m;
                 //マウスダウンとの比較と代入
                 if(h<this.s_h || (h==this.s_h && m<this.s_m)){
                     this.e_h = this.s_h;
