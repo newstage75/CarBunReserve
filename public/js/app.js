@@ -5321,6 +5321,94 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ReservationTimeTable.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ReservationTimeTable.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var td_span = [0, 15, 30, 45];
+var td_time = [];
+
+var _loop = function _loop(i) {
+  td_span.forEach(function (element) {
+    td_time.push([i, element]);
+  });
+};
+
+for (var i = 0; i < 24; i++) {
+  _loop(i);
+}
+
+;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  mounted: function mounted() {
+    console.log('Component mounted.');
+  },
+  data: function data() {
+    return {
+      room: "",
+      mousedown_time: "",
+      mouseup_time: "",
+      s_h: "",
+      s_m: "",
+      e_h: "",
+      e_m: "",
+      //ガントチャート用時刻(もしかしたら不要)
+      td_time: td_time,
+      td_span: td_span
+    };
+  },
+  methods: {
+    onMousedown: function onMousedown(room, h, m) {
+      this.mousedown_time = h + "時" + m + "分";
+      this.room = room; // セレクトボックスのvalue変更
+
+      document.getElementById('room_select').value = room;
+      document.getElementById('room_sel').value = room;
+      document.getElementById('hour1').value = h;
+      document.getElementById('mint1').value = m; //まずスタートタイムに代入（マウスアップの時刻と比較し開始時刻・終了時刻を決定）
+
+      this.s_h = h;
+      this.s_m = m; //テスト用（のちに削除）
+      // document.getElementById('start_hour').value = this.s_h;
+      // document.getElementById('start_mint').value = this.s_m;
+
+      console.log(td_time);
+      console.log(td_span);
+    },
+    onMouseup: function onMouseup(h, m) {
+      this.mouseup_time = h + "時" + m + "分"; // セレクトボックスのvalue変更
+
+      document.getElementById('hour2').value = h;
+      document.getElementById('mint2').value = m; //マウスダウンとの比較と代入
+
+      if (h < this.s_h || h == this.s_h && m < this.s_m) {
+        this.e_h = this.s_h;
+        this.e_m = this.s_m;
+        this.s_h = h;
+        this.s_m = m;
+      } else {
+        this.e_h = h;
+        this.e_m = m;
+      } // 表示の変更
+
+
+      document.getElementById('start_hour').value = this.s_h;
+      document.getElementById('start_mint').value = this.s_m;
+      document.getElementById('end_hour').value = this.e_h;
+      document.getElementById('end_mint').value = this.e_m;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&":
 /*!**********************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e& ***!
@@ -5363,12 +5451,175 @@ render._withStripped = true;
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ReservationTimeTable.vue?vue&type=template&id=12973100&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ReservationTimeTable.vue?vue&type=template&id=12973100& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("div", [_c("table", {
+    staticClass: "table table-bordered text-center"
+  }, [_c("tr", [_c("th", [_vm._v("車種")]), _vm._v(" "), _vm._l(24, function (n) {
+    return _c("th", {
+      key: n - 1,
+      attrs: {
+        colspan: "4"
+      }
+    }, [_vm._v(_vm._s(n - 1) + "時")]);
+  })], 2), _vm._v(" "), _c("tr", [_c("th", [_vm._v("車A")]), _vm._v(" "), _vm._l(_vm.td_time, function (m) {
+    return _c("td", {
+      key: m[0],
+      on: {
+        mousedown: function mousedown($event) {
+          return _vm.onMousedown(1, m[0], m[1]);
+        },
+        mouseup: function mouseup($event) {
+          return _vm.onMouseup(m[0], m[1]);
+        }
+      }
+    });
+  })], 2), _vm._v(" "), _c("tr", [_c("th", [_vm._v("車B")]), _vm._v(" "), _vm._l(_vm.td_time, function (m) {
+    return _c("td", {
+      key: m[0],
+      on: {
+        mousedown: function mousedown($event) {
+          return _vm.onMousedown(2, m[0], m[1]);
+        },
+        mouseup: function mouseup($event) {
+          return _vm.onMouseup(m[0], m[1]);
+        }
+      }
+    });
+  })], 2), _vm._v(" "), _c("tr", [_c("th", [_vm._v("車C")]), _vm._v(" "), _vm._l(_vm.td_time, function (m) {
+    return _c("td", {
+      key: m[0],
+      on: {
+        mousedown: function mousedown($event) {
+          return _vm.onMousedown(3, m[0], m[1]);
+        },
+        mouseup: function mouseup($event) {
+          return _vm.onMouseup(m[0], m[1]);
+        }
+      }
+    });
+  })], 2)]), _vm._v(" "), _c("table", [_vm._m(0), _vm._v(" "), _c("tr", [_c("th", [_vm._v("開始時刻")]), _vm._v(" "), _c("td", [_c("select", {
+    attrs: {
+      name: "start_hour",
+      id: "start_hour"
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }), _vm._v(" "), _vm._l(24, function (n) {
+    return _c("option", {
+      key: n,
+      domProps: {
+        value: n - 1
+      }
+    }, [_vm._v(_vm._s(n - 1))]);
+  })], 2), _vm._v("\n                    時\n                    "), _c("select", {
+    attrs: {
+      name: "start_mint",
+      id: "start_mint"
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }), _vm._v(" "), _vm._l(_vm.td_span, function (td_sp) {
+    return _c("option", {
+      key: td_sp,
+      domProps: {
+        value: td_sp
+      }
+    }, [_vm._v(_vm._s(td_sp))]);
+  })], 2), _vm._v("\n                    分\n                ")])]), _vm._v(" "), _c("tr", [_c("th", [_vm._v("終了時刻")]), _vm._v(" "), _c("td", [_c("select", {
+    attrs: {
+      name: "end_hour",
+      id: "end_hour"
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }), _vm._v(" "), _vm._l(24, function (n) {
+    return _c("option", {
+      key: n,
+      domProps: {
+        value: n - 1
+      }
+    }, [_vm._v(_vm._s(n - 1))]);
+  })], 2), _vm._v("\n                    時\n                    "), _c("select", {
+    attrs: {
+      name: "end_mint",
+      id: "end_mint"
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }), _vm._v(" "), _vm._l(_vm.td_span, function (td_sp) {
+    return _c("option", {
+      key: td_sp,
+      domProps: {
+        value: td_sp
+      }
+    }, [_vm._v(_vm._s(td_sp))]);
+  })], 2), _vm._v("\n                    分\n                ")])])])]);
+};
+
+var staticRenderFns = [function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("tr", [_c("th", [_vm._v("車種")]), _vm._v(" "), _c("td", [_c("select", {
+    attrs: {
+      name: "room_sel",
+      id: "room_sel"
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }, [_vm._v("選択")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "1"
+    }
+  }, [_vm._v("車A")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "2"
+    }
+  }, [_vm._v("車B")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "3"
+    }
+  }, [_vm._v("車C")])])])]);
+}];
+render._withStripped = true;
+
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_ReservationTimeTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/ReservationTimeTable */ "./resources/js/components/ReservationTimeTable.vue");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -5377,6 +5628,7 @@ render._withStripped = true;
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = (__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js")["default"]);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -5395,7 +5647,10 @@ Vue.component('example-component', (__webpack_require__(/*! ./components/Example
  */
 
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  components: {
+    ReservationTimeTable: _components_ReservationTimeTable__WEBPACK_IMPORTED_MODULE_0__["default"]
+  }
 });
 
 /***/ }),
@@ -28126,6 +28381,45 @@ component.options.__file = "resources/js/components/ExampleComponent.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/ReservationTimeTable.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/ReservationTimeTable.vue ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ReservationTimeTable_vue_vue_type_template_id_12973100___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ReservationTimeTable.vue?vue&type=template&id=12973100& */ "./resources/js/components/ReservationTimeTable.vue?vue&type=template&id=12973100&");
+/* harmony import */ var _ReservationTimeTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ReservationTimeTable.vue?vue&type=script&lang=js& */ "./resources/js/components/ReservationTimeTable.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ReservationTimeTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ReservationTimeTable_vue_vue_type_template_id_12973100___WEBPACK_IMPORTED_MODULE_0__.render,
+  _ReservationTimeTable_vue_vue_type_template_id_12973100___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ReservationTimeTable.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************!*\
   !*** ./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js& ***!
@@ -28142,6 +28436,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/ReservationTimeTable.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/ReservationTimeTable.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ReservationTimeTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ReservationTimeTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ReservationTimeTable.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ReservationTimeTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&":
 /*!*************************************************************************************!*\
   !*** ./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e& ***!
@@ -28155,6 +28465,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ExampleComponent.vue?vue&type=template&id=299e239e& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/ReservationTimeTable.vue?vue&type=template&id=12973100&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/ReservationTimeTable.vue?vue&type=template&id=12973100& ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ReservationTimeTable_vue_vue_type_template_id_12973100___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ReservationTimeTable_vue_vue_type_template_id_12973100___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ReservationTimeTable_vue_vue_type_template_id_12973100___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ReservationTimeTable.vue?vue&type=template&id=12973100& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ReservationTimeTable.vue?vue&type=template&id=12973100&");
 
 
 /***/ }),
