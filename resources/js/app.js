@@ -7,7 +7,6 @@
 require('./bootstrap');
 
 window.Vue = require('vue').default;
-import ReservationTimeTable from './components/ReservationTimeTable'
 
 /**
  * The following block of code may be used to automatically register your
@@ -21,6 +20,7 @@ import ReservationTimeTable from './components/ReservationTimeTable'
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('reservation-time-table', require('./components/ReservationTimeTable.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -30,7 +30,4 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
-    components: {
-        ReservationTimeTable
-    }
 });
