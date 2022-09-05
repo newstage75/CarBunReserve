@@ -1,5 +1,6 @@
 <template> 
-<div>
+<div class="m-3">
+        <h1>Vue予約画面</h1>
         <table class="table table-bordered text-center" >
             <tr>
                 <th class="border">車種</th>
@@ -20,47 +21,53 @@
         </tr>
         </table>
 
-        <table>
-            <tr>
-                <th>車種</th>
-                <td>
-                    <select name="room_sel" id="room_sel">
-                        <option value="">選択</option>
-                        <option value="1">車A</option>
-                        <option value="2">車B</option>
-                        <option value="3">車C</option>
-                    </select>
-                </td>
-                <span class="pe-2">:</span>
-                <th>開始時刻</th>
-                <td>
-                    <select name="start_hour" id="start_hour">
-                    <option value=""></option>
-                    <option v-for="n in 24" v-bind:value="n-1" :key="n">{{n-1}}</option>
-                    </select>
-                    時
-                    <select name="start_mint" id="start_mint">
-                        <option value=""></option>
-                        <option v-for="td_sp in td_span" v-bind:value="td_sp" :key="td_sp">{{td_sp}}</option>
-                    </select>
-                    分
-                </td>
-                <span class="ps-2 pe-2">　〜　</span>
-                <th>終了時刻</th>
-                <td>
-                    <select name="end_hour" id="end_hour">
+        <form method="POST" action="/reservation">
+            <table>
+                <tr>
+                    <th>車種</th>
+                    <td>
+                        <select name="room_sel" id="room_sel">
+                            <option value="">選択</option>
+                            <option value="1">車A</option>
+                            <option value="2">車B</option>
+                            <option value="3">車C</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>開始時刻</th>
+                    <td><input type="date" name="start_date" value="2018-10-01"></input></td>
+                    <td>
+                        <select name="start_hour" id="start_hour">
                         <option value=""></option>
                         <option v-for="n in 24" v-bind:value="n-1" :key="n">{{n-1}}</option>
-                    </select>
-                    時
-                    <select name="end_mint" id="end_mint">
-                        <option value=""></option>
-                        <option v-for="td_sp in td_span" v-bind:value="td_sp" :key="td_sp">{{td_sp}}</option>
-                    </select>
-                    分
-                </td>
-            </tr>
-        </table>
+                        </select>
+                        時
+                        <select name="start_mint" id="start_mint">
+                            <option value=""></option>
+                            <option v-for="td_sp in td_span" v-bind:value="td_sp" :key="td_sp">{{td_sp}}</option>
+                        </select>
+                        分
+                    </td>
+                    <span class="ps-2 pe-2">　〜　</span>
+                    <th>終了時刻</th>
+                    <td><input type="date" name="end_date" value="2018-10-01"></td>
+                    <td>
+                        <select name="end_hour" id="end_hour">
+                            <option value=""></option>
+                            <option v-for="n in 24" v-bind:value="n-1" :key="n">{{n-1}}</option>
+                        </select>
+                        時
+                        <select name="end_mint" id="end_mint">
+                            <option value=""></option>
+                            <option v-for="td_sp in td_span" v-bind:value="td_sp" :key="td_sp">{{td_sp}}</option>
+                        </select>
+                        分
+                    </td>
+                    <button type="submit" class="ms-3">予約する</button>
+                </tr>
+            </table>
+        </form>
     </div>
 </template>
 
@@ -118,6 +125,18 @@
                     this.e_h = h;
                     this.e_m = m;
                 }
+                //endの時間を+15分する
+                if(this.e_m===45){
+                    this.e_h += 1;
+                    this.e_m = 0;
+                }else{
+                    this.e_m += 15;
+                }
+                //24時00分の時に、0時00分表示とする
+                if(this.e_h==24){
+                    this.e_h = 0;
+                }
+
                 // 表示の変更
                 document.getElementById('start_hour').value = this.s_h;
                 document.getElementById('start_mint').value = this.s_m;
