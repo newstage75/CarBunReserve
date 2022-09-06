@@ -27,9 +27,9 @@ Route::post('/login', [App\Http\Controllers\Auth\LoginController::class,'login']
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class,'logout'])->name('logout');
 
 Route::get('/', function () {
-    return view('pages.reservations');
-})->middleware('auth'); ;
+    return redirect('/reservation');
+})->middleware('auth'); 
 
 
-Route::get('reservation', [ReservationController::class, 'index']); // 入力フォーム
-Route::post('reservation', [ReservationController::class, 'store']); // 送信先
+Route::get('reservation', [ReservationController::class, 'index'])->middleware('auth'); // 入力フォーム
+Route::post('reservation', [ReservationController::class, 'store'])->middleware('auth');// 送信先
