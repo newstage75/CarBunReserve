@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// Auth::routes();
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('/login', [App\Http\Controllers\Auth\LoginController::class,'showLoginForm'])->name('login');
+Route::post('/login', [App\Http\Controllers\Auth\LoginController::class,'login']);
+Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class,'logout'])->name('logout');
+
 Route::get('/', function () {
-    return view('welcome');
-});
+    return redirect('/reservation');
+})->middleware('auth'); 
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('reservation', [ReservationController::class, 'index'])->middleware('auth'); // 入力フォーム
+Route::post('reservation', [ReservationController::class, 'store'])->middleware('auth');// 送信先
