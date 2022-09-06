@@ -22,11 +22,12 @@
         </table>
 
         <form method="POST" action="/reservation">
+            <input type="hidden" name="_token" :value="csrf"></input>
             <table>
                 <tr>
                     <th>車種</th>
                     <td>
-                        <select name="room_sel" id="room_sel">
+                        <select name="car_sel" id="car_sel">
                             <option value="">選択</option>
                             <option value="1">車A</option>
                             <option value="2">車B</option>
@@ -36,7 +37,7 @@
                 </tr>
                 <tr>
                     <th>開始時刻</th>
-                    <td><input type="date" name="start_date" value="2018-10-01"></input></td>
+                    <td><input type="date" name="start_date"></input></td>
                     <td>
                         <select name="start_hour" id="start_hour">
                         <option value=""></option>
@@ -51,7 +52,7 @@
                     </td>
                     <span class="ps-2 pe-2">　〜　</span>
                     <th>終了時刻</th>
-                    <td><input type="date" name="end_date" value="2018-10-01"></td>
+                    <td><input type="date" name="end_date"></td>
                     <td>
                         <select name="end_hour" id="end_hour">
                             <option value=""></option>
@@ -64,9 +65,10 @@
                         </select>
                         分
                     </td>
-                    <button type="submit" class="ms-3">予約する</button>
                 </tr>
             </table>
+            <textarea class="mt-2" placeholder="使用用途を記入" name="memo" id="memo" cols="70" rows="5"></textarea>
+            <button type="submit" class="ms-3">予約する</button>
         </form>
     </div>
 </template>
@@ -83,11 +85,11 @@
 
     export default {
         mounted() {
-            console.log('Component mounted.')
+            console.log('ReservationTimeTable mounted.')
         },
-        data() {
+        data:function() {
             return {
-            room:"",
+            car:"",
             mousedown_time:"",
             mouseup_time:"",
             s_h:"",
@@ -98,14 +100,17 @@
             //ガントチャート用時刻
             td_time:td_time,
             td_span:td_span,
+
+            //csrf対策
+            csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             }
         },
         methods: {
-            onMousedown(room,h,m){
+            onMousedown(car,h,m){
                 this.mousedown_time = h+"時"+m+"分";
-                this.room = room;
+                this.car = car;
                 // セレクトボックスのvalue変更
-                document.getElementById('room_sel').value = room;
+                document.getElementById('car_sel').value = car;
                 //まずスタートタイムに代入（マウスアップの時刻と比較し開始時刻・終了時刻を決定）
                 this.s_h = h;
                 this.s_m = m;

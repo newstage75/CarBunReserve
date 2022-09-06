@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,10 @@ Route::get('/login', [App\Http\Controllers\Auth\LoginController::class,'showLogi
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class,'login']);
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class,'logout'])->name('logout');
 
-
 Route::get('/', function () {
     return view('pages.reservations');
 })->middleware('auth'); ;
+
+
+Route::get('reservation', [ReservationController::class, 'index']); // 入力フォーム
+Route::post('reservation', [ReservationController::class, 'store']); // 送信先
