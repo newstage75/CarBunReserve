@@ -37,7 +37,7 @@
                 </tr>
                 <tr>
                     <th>開始時刻</th>
-                    <td><input type="date" name="start_date"></input></td>
+                    <td><input type="date" name="start_date" value="2022-09-06"></input></td>
                     <td>
                         <select name="start_hour" id="start_hour">
                         <option value=""></option>
@@ -52,7 +52,7 @@
                     </td>
                     <span class="ps-2 pe-2">　〜　</span>
                     <th>終了時刻</th>
-                    <td><input type="date" name="end_date"></td>
+                    <td><input type="date" name="end_date" value="2022-09-06"></td>
                     <td>
                         <select name="end_hour" id="end_hour">
                             <option value=""></option>
