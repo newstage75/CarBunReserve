@@ -21,6 +21,7 @@ window.Vue = require('vue').default;
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('reservation-time-table', require('./components/ReservationTimeTable.vue').default);
+Vue.component('reserve-form-component', require('./components/ReserveFormComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -8,4 +8,5 @@
 
 @include('layouts.nav')
 <reservation-time-table></reservation-time-table>
+<reserve-form-component></reserve-form-component>
 @endsection
