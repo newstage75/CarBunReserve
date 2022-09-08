@@ -1,5 +1,5 @@
 <template>
-            <form method="POST" action="/reservation">
+            <form class="m-3" method="POST" action="/reservation">
             <input type="hidden" name="_token" :value="csrf"></input>
             <table>
                 <tr>
@@ -15,7 +15,7 @@
                 </tr>
                 <tr>
                     <th>開始時刻</th>
-                    <td><input type="date" name="start_date" value="2022-09-06"></input></td>
+                    <td><input type="date" name="start_date" id="start_date"></input></td>
                     <td>
                         <select name="start_hour" id="start_hour">
                         <option value=""></option>
@@ -24,13 +24,13 @@
                         時
                         <select name="start_mint" id="start_mint">
                             <option value=""></option>
-                            <option v-for="td_sp in td_span" v-bind:value="td_sp" :key="td_sp">{{td_sp}}</option>
+                            <option v-for="td_sp in td_span" :value="td_sp" :key="td_sp">{{td_sp}}</option>
                         </select>
                         分
                     </td>
-                    <span class="ps-2 pe-2">　〜　</span>
+                    <span class="ps-2 pe-2">〜</span>
                     <th>終了時刻</th>
-                    <td><input type="date" name="end_date" value="2022-09-06"></td>
+                    <td><input type="date" name="end_date" id="end_date"></td>
                     <td>
                         <select name="end_hour" id="end_hour">
                             <option value=""></option>
@@ -39,7 +39,7 @@
                         時
                         <select name="end_mint" id="end_mint">
                             <option value=""></option>
-                            <option v-for="td_sp in td_span" v-bind:value="td_sp" :key="td_sp">{{td_sp}}</option>
+                            <option v-for="td_sp in td_span" :value="td_sp" :key="td_sp">{{td_sp}}</option>
                         </select>
                         分
                     </td>
@@ -53,7 +53,31 @@
 <script>
     export default {
         mounted() {
-            console.log('ReservationTimeTable mounted.')
+            console.log('ReserveFormComponent mounted.');
+             //今日の日時を表示
+            window.onload = function () {
+                //今日の日時を表示
+                let date = new Date()
+                let year = date.getFullYear()
+                let month = date.getMonth() + 1
+                let day = date.getDate()
+
+                let toTwoDigits = function (num, digit) {
+                num += ''
+                if (num.length < digit) {
+                    num = '0' + num
+                }
+                return num
+                }
+
+                let yyyy = toTwoDigits(year, 4)
+                let mm = toTwoDigits(month, 2)
+                let dd = toTwoDigits(day, 2)
+                let ymd = yyyy + "-" + mm + "-" + dd;
+
+                document.getElementById("start_date").value = ymd;
+                document.getElementById("end_date").value = ymd;
+            };
         },
         data:function() {
             return {
@@ -62,6 +86,6 @@
             //csrf対策
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             }
-        },
+        }
     }
 </script>
