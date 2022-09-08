@@ -1,0 +1,54 @@
+/* フォントの読み込み（Google Fontsから@importで読み込み） */
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;700;900&family=Sora:wght@400;700&display=swap");
+
+/* 変数の定義 */
+:root{
+    --primary: #0d6efd;
+    --dark:#21252f;
+    --body: #888;
+    --box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+
+}
+
+
+/* Google FontsのCSS rulesから */
+.body {
+    font-family: Sora, "sans-serif";
+    line-height: 1.7;
+    color: var(--body); /* varを用いると、変数で定義した値を使うことができる。 */
+}
+
+/* 初期化関連 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.display-4 {
+  color: var(--dark);
+  font-weight: 700;
+}
+
+.a {
+    color: var(--dark);
+    text-decoration: none;
+  }
+
+section{
+    padding-top: 120px;
+    padding-bottom: 120px;
+}
+
+.navbar .nav-link{
+    color: #fff !important;
+    font-size: 14px;
+    font-weight: 700;
+    padding-top: 12px;
+}
+
+.btn {
+    padding: 14px 18px;
+    border-width: 2px;
+    border-radius: 0;
+}

@@ -1,21 +1,28 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#" class="me-5">CarBunBun予約ポートフォリオ</a>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#">予約一覧</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">My予約変更・削除</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">ユーザー別履歴</a>
-        </li>
-        <a href="/logout">
-            <button>ログアウト</button>
-        </a>
-      </ul>
-    </div>
-  </div>
-</nav>
+
+<!-- navbar section -->
+<nav class="navbar navbar-expand-lg navbar-light bg-dark py-3">
+        <div class="container">
+          <a class="navbar-brand" href="#">
+            <h2 class="text-white pt-1">CarBunBun社有車予約</h2>
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="#">予約一覧</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">My予約変更・削除</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">ユーザー別履歴</a>
+              </li>
+              <a href="/logout">
+                <button class="btn btn-primary ms-2">ログアウト</button>
+              </a>
+            </ul>
+          </div>
+        </div>
+      </nav>
