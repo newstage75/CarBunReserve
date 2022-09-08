@@ -2,7 +2,8 @@
 /public/hot
 /public/storage
 #==========ここから追加==========
-/public/css 
+# /public/css
+/public/css/app.css
 /public/js  
 /public/mix-manifest.json
 #==========ここまで追加==========
