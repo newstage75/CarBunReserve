@@ -19,9 +19,12 @@
               <li class="nav-item">
                 <a class="nav-link" href="#">ユーザー別履歴</a>
               </li>
-              <a href="/logout">
-                <button class="btn btn-primary ms-2">ログアウト</button>
-              </a>
+              <button form="logout-button" class="btn btn-primary ms-2" type="submit">
+                ログアウト
+              </button>
+              <form id="logout-button" method="POST" action="{{ route('logout') }}">
+                @csrf
+              </form>
             </ul>
           </div>
         </div>
