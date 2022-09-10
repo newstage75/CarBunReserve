@@ -52,3 +52,13 @@ section{
     border-width: 2px;
     border-radius: 0;
 }
+
+/* ガントチャート用のCSS */
+.gantt-head{
+    background-color: #eee;
+    height: 35px;
+}
+
+.gantt-data{
+    background-color: rgb(214, 238, 250);
+}

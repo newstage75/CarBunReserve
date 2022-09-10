@@ -1,23 +1,22 @@
 <template> 
-<div class="m-3">
-        <h1>Vue予約画面</h1>
+<div class="mt-2">
         <table class="table table-bordered text-center" >
-            <tr>
+            <tr class="gantt-head">
                 <th class="border">車種</th>
                 <th class="border" v-for="n in 24" :key="n-1"  colspan="4">{{n-1}}時</th>
         </tr>
         <tr>
-            <th class="border">車A</th>
+            <th class="border gantt-head">車A</th>
             <!-- keyの数字が被らないよう*100をして工夫 -->
-            <td class="border" v-for="m in td_time" :key="m[0]*100+m[1]" @mousedown="onMousedown(1,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])" ></td>
+            <td class="border gantt-data" v-for="m in td_time" :key="m[0]*100+m[1]" @mousedown="onMousedown(1,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])" ></td>
         </tr>
         <tr>
-            <th class="border">車B</th>
-            <td class="border" v-for="m in td_time" :key="m[0]*100+m[1]" @mousedown="onMousedown(2,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])"></td>
+            <th class="border gantt-head">車B</th>
+            <td class="border gantt-data" v-for="m in td_time" :key="m[0]*100+m[1]" @mousedown="onMousedown(2,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])"></td>
         </tr>
         <tr>
-            <th class="border">車C</th>
-            <td class="border" v-for="m in td_time" :key="m[0]*100+m[1]" @mousedown="onMousedown(3,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])"></td>
+            <th class="border gantt-head">車C</th>
+            <td class="border gantt-data" v-for="m in td_time" :key="m[0]*100+m[1]" @mousedown="onMousedown(3,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])"></td>
         </tr>
         </table>
     </div>
