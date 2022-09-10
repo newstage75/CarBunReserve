@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\CheckTimeRule;
 use App\Rules\ReservationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -44,6 +45,10 @@ class ReservationRequest extends FormRequest
             'end_mint' => 'required',
             'memo' => 'required',
             'start_at' => [
+                new CheckTimeRule(
+                    $this->start_at, // 開始日時
+                    $this->end_at // 終了日時
+                ),
                 new ReservationRule(
                     $this->car_sel, // carsテーブルのid
                     $this->start_at, // 開始日時
