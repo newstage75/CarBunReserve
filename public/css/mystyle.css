@@ -41,10 +41,14 @@ section{
 }
 
 .navbar .nav-link{
-    color: #fff !important;
+    color: #fff;
     font-size: 14px;
     font-weight: 700;
     padding-top: 12px;
+}
+
+.nav-link:hover{
+    color: #2b7ffd;
 }
 
 .btn {
