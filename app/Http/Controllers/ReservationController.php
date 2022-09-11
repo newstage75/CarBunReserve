@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\ReservationRequest;
 use App\Models\Reservation;
+use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
@@ -34,6 +35,9 @@ class ReservationController extends Controller
 
     //自身の予約確認用ページ
     public function myreserve(Request $request){
-        return view('pages.myreserve');
+        $user = Auth()->user();
+        $name = $user->name;
+        $myreserve = Reservation::where('user_id',$user->id)->get();
+        return view('pages.myreserve',['username'=>$name,'myreserve'=>$myreserve]);
     }
 }
