@@ -54,11 +54,24 @@ section{
 }
 
 /* ガントチャート用のCSS */
+.time-head{
+    width: 20px;
+}
+
 .gantt-head{
     background-color: #eee;
-    height: 35px;
+    height: 25px;
 }
 
 .gantt-data{
-    background-color: rgb(214, 238, 250);
+    background-color: rgba(0, 170, 255, 0.3);
+}
+
+/* 予約済みの色を変更 */
+.reserved{
+    background-color: rgba(255, 115, 0, 0.5);
+}
+
+.myself{
+    background-color: rgba(255, 0, 0, 0.5);
 }
