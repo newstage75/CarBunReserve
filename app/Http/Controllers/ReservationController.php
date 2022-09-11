@@ -8,11 +8,15 @@ use App\Models\Reservation;
 
 class ReservationController extends Controller
 {
-    public function index() {
-
+    public function index(Request $request) {
+        //将来的に選択したカレンダーの日程でガントチャートの表示を反映させる。
+        // $calendar_date = $request->calendar_date;
+        // $laraArray = Reservation::where('start_at',$calendar_date)->get();
+        // return view('pages.reservations')->with('laraArray', $laraArray);
         return view('pages.reservations');
 
     }
+
 
     //将来的にReservationRequestとしたいが、まずはRequestで実装
     public function store(ReservationRequest $request){

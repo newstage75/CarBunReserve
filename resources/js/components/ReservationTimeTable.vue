@@ -1,23 +1,22 @@
 <template> 
-<div class="m-3">
-        <h1>Vue予約画面</h1>
+<div class="mt-2">
         <table class="table table-bordered text-center" >
-            <tr>
-                <th class="border">車種</th>
-                <th class="border" v-for="n in 24" :key="n-1"  colspan="4">{{n-1}}時</th>
+            <tr class="gantt-head">
+                <th class="border border-primary">車種</th>
+                <th class="border border-primary time-head" v-for="n in 24" :key="n-1"  colspan="4">{{n-1}}時</th>
         </tr>
         <tr>
-            <th class="border">車A</th>
+            <th class="border border-primary gantt-head">車A</th>
             <!-- keyの数字が被らないよう*100をして工夫 -->
-            <td class="border" v-for="m in td_time" :key="m[0]*100+m[1]" @mousedown="onMousedown(1,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])" ></td>
+            <td class="border border-primary gantt-data" v-for="m in td_time" :key="m[0]*100+m[1]" :class="{ reserved: isReserved(1,m[0],m[1]) }" @mousedown="onMousedown(1,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])" ></td>
         </tr>
         <tr>
-            <th class="border">車B</th>
-            <td class="border" v-for="m in td_time" :key="m[0]*100+m[1]" @mousedown="onMousedown(2,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])"></td>
+            <th class="border border-primary  gantt-head">車B</th>
+            <td class="border border-primary gantt-data" v-for="m in td_time" :key="m[0]*100+m[1]" :class="{ reserved: isReserved(2,m[0],m[1]) }"  @mousedown="onMousedown(2,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])"></td>
         </tr>
         <tr>
-            <th class="border">車C</th>
-            <td class="border" v-for="m in td_time" :key="m[0]*100+m[1]" @mousedown="onMousedown(3,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])"></td>
+            <th class="border border-primary gantt-head">車C</th>
+            <td class="border border-primary gantt-data" v-for="m in td_time" :key="m[0]*100+m[1]" :class="{ reserved: isReserved(3,m[0],m[1]) }" @mousedown="onMousedown(3,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])"></td>
         </tr>
         </table>
     </div>
@@ -52,8 +51,11 @@
             td_time:td_time,
             td_span:td_span,
 
-            //csrf対策
-            // csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            //テスト用予約済みテーブルの配列[車種、時、分]でブロックごとに予約の有無を確認
+            reserved:[[1,1,15],[1,1,30],[1,1,45],
+                      [2,15,15],[2,15,30],[2,15,45],
+                      [3,20,15],[3,20,30],[3,20,45]],
+
             }
         },
         methods: {
@@ -98,7 +100,19 @@
                 document.getElementById('start_mint').value = this.s_m;
                 document.getElementById('end_hour').value = this.e_h;
                 document.getElementById('end_mint').value = this.e_m;
+            },
+            //予約されているか否かの確認
+            // isReserved(m,m0,m1){
+            //     if(m0===20 && m1===45){
+            //         return true;
+            //     }
+            isReserved(car_id,m0,m1){ //車種、予約時間(m0時:m1分)に予約があるか確認
+                for (const block of this.reserved) {
+                    if(block[0]===car_id && block[1]===m0 && block[2]===m1){
+                        return true;
+                    }
+                }
             }
-        }
+        },
     }
 </script>

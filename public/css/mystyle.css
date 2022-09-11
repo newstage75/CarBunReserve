@@ -41,14 +41,41 @@ section{
 }
 
 .navbar .nav-link{
-    color: #fff !important;
+    color: #fff;
     font-size: 14px;
     font-weight: 700;
     padding-top: 12px;
+}
+
+.nav-link:hover{
+    color: #2b7ffd;
 }
 
 .btn {
     padding: 8px 10px;
     border-width: 2px;
     border-radius: 0;
+}
+
+/* ガントチャート用のCSS */
+.time-head{
+    width: 20px;
+}
+
+.gantt-head{
+    background-color: #eee;
+    height: 25px;
+}
+
+.gantt-data{
+    background-color: rgba(0, 170, 255, 0.3);
+}
+
+/* 予約済みの色を変更 */
+.reserved{
+    background-color: rgba(255, 115, 0, 0.5);
+}
+
+.myself{
+    background-color: rgba(255, 0, 0, 0.5);
 }

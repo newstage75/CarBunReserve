@@ -1,5 +1,5 @@
 <template>
-            <form class="m-3" method="POST" action="/reservation">
+            <form class="mt-3" method="POST" action="/reservation">
             <input type="hidden" name="_token" :value="csrf"></input>
             <table>
                 <tr>
@@ -75,6 +75,9 @@
                 let dd = toTwoDigits(day, 2)
                 let ymd = yyyy + "-" + mm + "-" + dd;
 
+                //カレンダーの日付用
+                document.getElementById("calendar_date").value = ymd;
+                //入力部分の日付用
                 document.getElementById("start_date").value = ymd;
                 document.getElementById("end_date").value = ymd;
             };
