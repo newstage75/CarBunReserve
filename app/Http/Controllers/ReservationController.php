@@ -17,8 +17,6 @@ class ReservationController extends Controller
 
     }
 
-
-    //将来的にReservationRequestとしたいが、まずはRequestで実装
     public function store(ReservationRequest $request){
         // $start_at=$request->start_date.' '.$request->start_hour.':'.$request->start_mint;
         // $end_at=$request->end_date.' '.$request->end_hour.':'.$request->end_mint;
@@ -32,5 +30,10 @@ class ReservationController extends Controller
         ]);
         // return view('pages.reservations');
         return back()->with('result', '予約が完了しました。');
+    }
+
+    //自身の予約確認用ページ
+    public function myreserve(Request $request){
+        return view('pages.myreserve');
     }
 }

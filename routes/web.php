@@ -33,3 +33,5 @@ Route::get('/', function () {
 
 Route::get('reservation', [ReservationController::class, 'index'])->middleware('auth'); // 入力フォーム
 Route::post('reservation', [ReservationController::class, 'store'])->middleware('auth');// 送信先
+
+Route::get('myreserve', [ReservationController::class, 'myreserve'])->middleware('auth'); // 自身の予約確認
