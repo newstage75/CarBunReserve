@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\ReservationRequest;
 use App\Models\Reservation;
+use App\Models\Car;
 use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
