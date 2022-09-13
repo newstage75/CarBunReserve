@@ -79,3 +79,8 @@ section{
 .myself{
     background-color: rgba(255, 0, 0, 0.5);
 }
+
+/* 予約確認画面 */
+.td-text{
+    font-size: 1.2rem;
+}

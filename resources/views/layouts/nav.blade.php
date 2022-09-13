@@ -11,10 +11,10 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <a class="nav-link" href="#">予約一覧</a>
+                <a class="nav-link" href="reservation">予約一覧</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">My予約変更・削除</a>
+                <a class="nav-link" href="myreserve">My予約変更・削除</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">ユーザー別履歴</a>
