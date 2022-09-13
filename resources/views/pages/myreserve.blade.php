@@ -41,7 +41,6 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
                 <form id="my_remove{{$reserve->id}}" method="POST" action="/myreserve/remove">
                     @csrf
-                    <input type="hidden" name="_token" :value="csrf"></input>
                     <input type="hidden" name="id" value="{{$reserve->id}}"></input>
                     <button form="my_remove{{$reserve->id}}" type="submit" class="btn btn-danger">
                           削除する
