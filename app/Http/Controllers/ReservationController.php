@@ -41,4 +41,9 @@ class ReservationController extends Controller
         $myreserve = Reservation::where('user_id',$user->id)->get();
         return view('pages.myreserve',['username'=>$name,'myreserve'=>$myreserve]);
     }
+
+    public function remove(Request $request){
+        Reservation::find($request->id)->delete();
+        return view('pages.myreserve',['username'=>$name,'myreserve'=>$myreserve]);
+    }
 }
