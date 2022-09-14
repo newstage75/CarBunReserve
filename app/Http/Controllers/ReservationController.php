@@ -42,6 +42,13 @@ class ReservationController extends Controller
         return view('pages.myreserve',['username'=>$name,'myreserve'=>$myreserve]);
     }
 
+    public function edit(Request $request){
+        $reserve = Reservation::find($request->id);
+        $reserve->memo = $request->memo;
+        $reserve->save();
+        return redirect('/myreserve');
+    }
+
     public function remove(Request $request){
         Reservation::destroy($request->id);
         return redirect('/myreserve');
