@@ -43,7 +43,7 @@ class ReservationController extends Controller
     }
 
     public function remove(Request $request){
-        Reservation::find($request->id)->delete();
-        return view('pages.myreserve',['username'=>$name,'myreserve'=>$myreserve]);
+        Reservation::destroy($request->id);
+        return redirect('/myreserve');
     }
 }

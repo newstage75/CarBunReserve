@@ -22,8 +22,8 @@
             <td class="td-text">{{$reserve->car->name}}</td>
             <td class="td-text">{{$reserve->memo}}</td>
             <td>
-                <button class="btn btn-warning btn-sm rounded-pill me-5">変更</button>
-                <button class="btn btn-danger btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#Modal{{$reserve->id}}">削除</button>
+                <button class="btn btn-warning btn-sm rounded-3 me-3">変更</button>
+                <button class="btn btn-danger btn-sm rounded-3" data-bs-toggle="modal" data-bs-target="#Modal{{$reserve->id}}">削除</button>
             </td>
         </tr>
         <!-- 削除確認用Modal Bootstrap5のモーダルコンポーネントから -->
@@ -40,8 +40,8 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
                 <form id="my_remove{{$reserve->id}}" method="POST" action="/myreserve/remove">
-                    @csrf
-                    <input type="hidden" name="id" value="{{$reserve->id}}"></input>
+                    <input form="my_remove{{$reserve->id}}" type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input form="my_remove{{$reserve->id}}" type="hidden" name="id" value="{{$reserve->id}}">
                     <button form="my_remove{{$reserve->id}}" type="submit" class="btn btn-danger">
                           削除する
                     </button>
