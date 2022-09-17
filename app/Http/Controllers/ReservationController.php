@@ -44,12 +44,19 @@ class ReservationController extends Controller
 
     public function edit(Request $request){
         $reserve = Reservation::find($request->id);
+        //変更者一致かの認可
+        $this->authorize('edit', $reserve);
+        //データの変更部分
         $reserve->memo = $request->memo;
         $reserve->save();
         return redirect('/myreserve');
     }
 
     public function remove(Request $request){
+        //変更者一致かの認可
+        $reserve = Reservation::find($request->id);
+        $this->authorize('edit', $reserve);
+        //削除実行部分
         Reservation::destroy($request->id);
         return redirect('/myreserve');
     }
