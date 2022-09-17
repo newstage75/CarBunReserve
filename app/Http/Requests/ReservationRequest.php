@@ -46,8 +46,12 @@ class ReservationRequest extends FormRequest
             'memo' => 'required',
             'start_at' => [
                 new CheckTimeRule(
-                    $this->start_at, // 開始日時
-                    $this->end_at // 終了日時
+                    $this->start_date, // 開始[日]
+                    $this->start_hour, // 開始[時]
+                    $this->start_mint, // 開始[分]
+                    $this->end_date, // 終了[日]
+                    $this->end_hour, // 終了[時]
+                    $this->end_mint // 終了[分]
                 ),
                 new ReservationRule(
                     $this->car_sel, // carsテーブルのid
