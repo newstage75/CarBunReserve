@@ -60,4 +60,10 @@ class ReservationController extends Controller
         Reservation::destroy($request->id);
         return redirect('/myreserve');
     }
+
+    //ユーザー別の予約確認用ページ
+    public function other(Request $request){
+        $user = Auth()->user();
+        return view('pages.users-reserve');
+    }
 }
