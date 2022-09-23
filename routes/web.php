@@ -37,3 +37,5 @@ Route::post('reservation', [ReservationController::class, 'store'])->middleware(
 Route::get('myreserve', [ReservationController::class, 'myreserve'])->middleware('auth'); // 自身の予約確認
 Route::post('myreserve/edit', [ReservationController::class, 'edit'])->middleware('auth'); // 自身の予約削除
 Route::post('myreserve/remove', [ReservationController::class, 'remove'])->middleware('auth'); // 自身の予約削除
+
+Route::get('users', [ReservationController::class, 'other'])->middleware('auth'); // ユーザー別の予約確認

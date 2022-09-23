@@ -17,7 +17,7 @@
                 <a class="nav-link" href="myreserve">My予約変更・削除</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">ユーザー別履歴</a>
+                <a class="nav-link" href="users">ユーザー別履歴</a>
               </li>
               <button form="logout-button" class="btn btn-primary ms-2" type="submit">
                 ログアウト

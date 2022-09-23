@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ReservationRequest;
 use App\Models\Reservation;
 use App\Models\Car;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
@@ -60,4 +61,17 @@ class ReservationController extends Controller
         Reservation::destroy($request->id);
         return redirect('/myreserve');
     }
+
+    //ユーザー別の予約確認用ページ
+    public function other(Request $request){
+        // すべてのユーザー情報を取得（セレクト用）
+        $users = User::get();
+        //クエリパラメータにidが含まれる場合はそのユーザidを。nullの場合は自身のユーザーidを。
+        $select_id = $request->id == null  ? Auth()->user()->id : (int)$request->id;
+        $username = User::where('id',$select_id)->first()->name;
+        // 選択したユーザーの履歴取得
+        $reserves = Reservation::where('user_id',$select_id)->get();
+        return view('pages.users-reserve',['users'=>$users,'select_id'=>$select_id,'username'=>$username,'reserves'=>$reserves]);
+    }
+
 }
