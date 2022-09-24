@@ -1,6 +1,6 @@
 <template> 
-<div class="mt-2">
-        <table class="table table-bordered text-center" >
+<div class="mt-2 gantt-parent">
+        <table class="table table-bordered text-center gantt-chart">
             <tr class="gantt-head">
                 <th class="border border-primary">車種</th>
                 <th class="border border-primary time-head" v-for="n in 24" :key="n-1"  colspan="4">{{n-1}}時</th>
@@ -102,10 +102,6 @@
                 document.getElementById('end_mint').value = this.e_m;
             },
             //予約されているか否かの確認
-            // isReserved(m,m0,m1){
-            //     if(m0===20 && m1===45){
-            //         return true;
-            //     }
             isReserved(car_id,m0,m1){ //車種、予約時間(m0時:m1分)に予約があるか確認
                 for (const block of this.reserved) {
                     if(block[0]===car_id && block[1]===m0 && block[2]===m1){

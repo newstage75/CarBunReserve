@@ -12,11 +12,14 @@ use Illuminate\Support\Facades\Auth;
 class ReservationController extends Controller
 {
     public function index(Request $request) {
-        //将来的に選択したカレンダーの日程でガントチャートの表示を反映させる。
-        // $calendar_date = $request->calendar_date;
-        // $laraArray = Reservation::where('start_at',$calendar_date)->get();
-        // return view('pages.reservations')->with('laraArray', $laraArray);
-        return view('pages.reservations');
+        //選択したカレンダーの日程でガントチャートの表示を反映させる。
+        //選択されていない場合は、現在の年月日を取得する。
+        $calendar_date = isset($request->calendar_date) ? $request->calendar_date : date("Y-m-d");
+        // dd(date("Y-m-d"));
+        // dd($request->calendar_date);
+        // dd(isset($request->calendar_date));
+        // dd($calendar_date);
+        return view('pages.reservations',['calendar_date'=>$calendar_date]);
 
     }
 

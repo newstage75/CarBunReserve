@@ -58,13 +58,22 @@ section{
 }
 
 /* ガントチャート用のCSS */
+.gantt-parent{
+    width: 100%;
+}
+
+.gantt-chart{
+    max-width: 1920px;
+    overflow-x: scroll;
+}
+
 .time-head{
-    width: 20px;
+    width: 50px;
 }
 
 .gantt-head{
     background-color: #eee;
-    height: 25px;
+    height: 30px;
 }
 
 .gantt-data{
@@ -83,4 +92,8 @@ section{
 /* 予約確認画面 */
 .td-text{
     font-size: 1.2rem;
+}
+
+.memo-form{
+    width: 80%;
 }
