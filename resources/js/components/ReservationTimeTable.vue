@@ -1,24 +1,25 @@
 <template> 
 <div class="mt-2 gantt-parent">
+            <!-- デバッグ用 -->
+            <!-- <div class="bg-secondary">
+                    <p>{{ carsSelect}}</p>
+                    <div v-for='car in carsSelect'>
+                        <p :key="car.id">【ID】{{car.id}}【車種】{{car.name}}</p>
+                    </div>
+             </div> -->
+        <!-- v-forを使った表現 -->
         <table class="table table-bordered text-center gantt-chart">
             <tr class="gantt-head">
                 <th class="border border-primary">車種</th>
                 <th class="border border-primary time-head" v-for="n in 24" :key="n-1"  colspan="4">{{n-1}}時</th>
-        </tr>
-        <tr>
-            <th class="border border-primary gantt-head">車A</th>
-            <!-- keyの数字が被らないよう*100をして工夫 -->
-            <td class="border border-primary gantt-data" v-for="m in td_time" :key="m[0]*100+m[1]" :class="{ reserved: isReserved(1,m[0],m[1]) }" @mousedown="onMousedown(1,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])" ></td>
-        </tr>
-        <tr>
-            <th class="border border-primary  gantt-head">車B</th>
-            <td class="border border-primary gantt-data" v-for="m in td_time" :key="m[0]*100+m[1]" :class="{ reserved: isReserved(2,m[0],m[1]) }"  @mousedown="onMousedown(2,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])"></td>
-        </tr>
-        <tr>
-            <th class="border border-primary gantt-head">車C</th>
-            <td class="border border-primary gantt-data" v-for="m in td_time" :key="m[0]*100+m[1]" :class="{ reserved: isReserved(3,m[0],m[1]) }" @mousedown="onMousedown(3,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])"></td>
-        </tr>
+            </tr>
+            <tr v-for='car in carsSelect' :key="car.id">
+                <th class="border border-primary gantt-head">{{car.name}}</th>
+                <!-- keyの数字が被らないよう*100をして工夫 -->
+                <td class="border border-primary gantt-data" v-for="m in td_time" :key="m[0]*100+m[1]" :class="{ reserved: isReserved(car.id,m[0],m[1]) }" @mousedown="onMousedown(car.id,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])" ></td>
+            </tr>
         </table>
+
     </div>
 </template>
 
@@ -34,6 +35,9 @@
     };
 
     export default {
+        props: {
+            carsSelect: Array,
+        },
         mounted() {
             console.log('ReservationTimeTable mounted.')
         },

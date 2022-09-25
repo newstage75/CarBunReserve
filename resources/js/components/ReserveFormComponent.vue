@@ -1,7 +1,6 @@
 <template>
         <form method="POST" action="/reservation">
             <div>
-
                 <input type="hidden" name="_token" :value="csrf"></input>
                 <table>
                     <tr>
@@ -12,9 +11,9 @@
                         <td>
                             <select name="car_sel" id="car_sel">
                                 <option value="">選択</option>
-                                <option value="1">車A</option>
-                                <option value="2">車B</option>
-                                <option value="3">車C</option>
+                                <template v-for='car in carsSelect'>
+                                    <option :value="car.id" :key="car.id">{{car.name}}</option>
+                                </template>
                             </select>
                         </td>
                     </tr>
@@ -24,7 +23,7 @@
                         <td>
                             <select name="start_hour" id="start_hour">
                             <option value=""></option>
-                            <option v-for="n in 24" v-bind:value="n-1" :key="n">{{n-1}}</option>
+                            <option v-for="n in 24" :value="n-1" :key="n">{{n-1}}</option>
                             </select>
                             時
                             <select name="start_mint" id="start_mint">
@@ -60,6 +59,7 @@
     export default {
         props: {
             calendarDate: String,
+            carsSelect: Array,
         },
         mounted() {
             console.log('ReserveFormComponent mounted.');

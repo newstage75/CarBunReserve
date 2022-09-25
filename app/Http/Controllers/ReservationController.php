@@ -15,12 +15,9 @@ class ReservationController extends Controller
         //選択したカレンダーの日程でガントチャートの表示を反映させる。
         //選択されていない場合は、現在の年月日を取得する。
         $calendar_date = isset($request->calendar_date) ? $request->calendar_date : date("Y-m-d");
-        // dd(date("Y-m-d"));
-        // dd($request->calendar_date);
-        // dd(isset($request->calendar_date));
-        // dd($calendar_date);
-        return view('pages.reservations',['calendar_date'=>$calendar_date]);
-
+        // すべての車種情報を取得（セレクト用）
+        $cars = Car::get();
+        return view('pages.reservations',['calendar_date'=>$calendar_date,'cars'=>$cars]);
     }
 
     public function store(ReservationRequest $request){

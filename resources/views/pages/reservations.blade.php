@@ -16,8 +16,8 @@
     <button type="submit" class="ms-3">日付を切替える</button>
 </form>
 
-<reservation-time-table></reservation-time-table>
-<reserve-form-component :calendar-date='@json($calendar_date)'></reserve-form-component>
+<reservation-time-table :cars-select='@json($cars)'></reservation-time-table>
+<reserve-form-component :calendar-date='@json($calendar_date)' :cars-select='@json($cars)'></reserve-form-component>
     <div class="m-3">
         <!-- 完了メッセージ -->
         @if (session('result'))
