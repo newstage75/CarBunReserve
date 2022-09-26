@@ -8,6 +8,7 @@ use App\Models\Reservation;
 use App\Models\Car;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class ReservationController extends Controller
 {
@@ -17,7 +18,32 @@ class ReservationController extends Controller
         $calendar_date = isset($request->calendar_date) ? $request->calendar_date : date("Y-m-d");
         // すべての車種情報を取得（セレクト用）
         $cars = Car::get();
-        return view('pages.reservations',['calendar_date'=>$calendar_date,'cars'=>$cars]);
+        //選択された日付の予約状況を取得
+        $reserved = Reservation::whereDate('start_at','<=',$calendar_date)->whereDate('end_at','>=',$calendar_date)->get();
+        //予約状況を配列で取得する方法
+        $reserve_block = [];
+        foreach($reserved as $item) {
+            // 開始時刻と終了時刻の差分（分）を計算
+            $first = new Carbon($item->start_at); 
+            $second = new Carbon($item->end_at); 
+            $duration = $first->diffInMinutes($second);
+            //['車種ID','時','分']のブロックを作成する
+            $dt = $first;
+            $blocks = intdiv($duration,15);
+            //連想配列の作成
+            for ($i = 0; $i < $blocks; $i++){
+                $hour = $dt->hour;
+                $mint = $dt->minute;
+                //配列の作成
+                $array = [$item->car_id, $hour, $mint];
+                array_push($reserve_block, $array);
+                $dt->addMinutes(15);
+              }
+        };
+
+        // dd($reserved);
+
+        return view('pages.reservations',['calendar_date'=>$calendar_date,'cars'=>$cars,'reserved'=>$reserved, 'reserve_block'=>$reserve_block]);
     }
 
     public function store(ReservationRequest $request){

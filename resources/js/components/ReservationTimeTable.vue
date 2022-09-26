@@ -1,11 +1,12 @@
 <template> 
 <div class="mt-2 gantt-parent">
-            <!-- デバッグ用 -->
-            <!-- <div class="bg-secondary">
-                    <p>{{ carsSelect}}</p>
-                    <div v-for='car in carsSelect'>
-                        <p :key="car.id">【ID】{{car.id}}【車種】{{car.name}}</p>
-                    </div>
+            <!-- デバッグ用 予約済みの配列を渡す -->
+             <!-- <div class="bg-white border border-3 mb-3">
+             <h4>デバッグ用Laravelから渡されたデータ群</h4>
+             <div v-for='reserve in carReserved'>
+                <p :key="reserve.id">【車種ID】{{reserve.car_id}}【開始】{{reserve.start_at}}【終了】{{reserve.end_at}}</p>
+             </div>
+            <p>{{reserveBlock}}</p>
              </div> -->
         <!-- v-forを使った表現 -->
         <table class="table table-bordered text-center gantt-chart">
@@ -37,6 +38,8 @@
     export default {
         props: {
             carsSelect: Array,
+            carReserved: Array,
+            reserveBlock: Array,
         },
         mounted() {
             console.log('ReservationTimeTable mounted.')
@@ -56,9 +59,11 @@
             td_span:td_span,
 
             //テスト用予約済みテーブルの配列[車種、時、分]でブロックごとに予約の有無を確認
-            reserved:[[1,1,15],[1,1,30],[1,1,45],
-                      [2,15,15],[2,15,30],[2,15,45],
-                      [3,20,15],[3,20,30],[3,20,45]],
+            // reserved:[[1,1,15],[1,1,30],[1,1,45],
+            //           [2,15,15],[2,15,30],[2,15,45],
+            //           [3,20,15],[3,20,30],[3,20,45]],
+            
+            reserved: this.reserveBlock,
 
             }
         },
