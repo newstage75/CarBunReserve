@@ -38,7 +38,7 @@
                         <td>
                             <select name="end_hour" id="end_hour">
                                 <option value=""></option>
-                                <option v-for="n in 24" v-bind:value="n-1" :key="n">{{n-1}}</option>
+                                <option v-for="n in 25" v-bind:value="n-1" :key="n">{{n-1}}</option>
                             </select>
                             時
                             <select name="end_mint" id="end_mint">

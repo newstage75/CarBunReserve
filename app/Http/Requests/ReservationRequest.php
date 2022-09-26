@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Rules\CheckTimeRule;
 use App\Rules\ReservationRule;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ReservationRequest extends FormRequest
@@ -18,13 +19,16 @@ class ReservationRequest extends FormRequest
         return true;
     }
 
-    // all()内では開始日時を$this->start_at,終了日時を$this->end_atとして取得できるようにオーバーライド
-    // 将来実装
+    // 開始日時を$this->start_at,終了日時を$this->end_atとして取得できるようにしている。
+    // またCarbonで整形することによりend_hourが24時を超える場合にも対応
     public function all($key = null)
     {
         $results = parent::all($key);
+        // Carbonを用いて整形
         $results['start_at'] = $results['start_date'] .' '.$results['start_hour'].':'.$results['start_mint'];
+        $results['start_at'] = new Carbon($results['start_at']);
         $results['end_at'] = $results['end_date'] .' '.$results['end_hour'].':'.$results['end_mint'];
+        $results['end_at'] = new Carbon($results['end_at']);
         return $results;
     }
 

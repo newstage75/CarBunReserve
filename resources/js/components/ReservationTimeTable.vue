@@ -99,10 +99,10 @@
                 }else{
                     this.e_m += 15;
                 }
-                //24時00分の時に、0時00分表示とする
-                if(this.e_h==24){
-                    this.e_h = 0;
-                }
+                //24時00分の時に、0時00分表示とする←24:45まで許容することで対応した
+                // if(this.e_h==24){
+                //     this.e_h = 0;
+                // }
 
                 // 表示の変更
                 document.getElementById('start_hour').value = this.s_h;

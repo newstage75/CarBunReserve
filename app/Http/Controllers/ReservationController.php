@@ -13,19 +13,30 @@ use Carbon\Carbon;
 class ReservationController extends Controller
 {
     public function index(Request $request) {
+        // すべての車種情報を取得（セレクト用）
+        $cars = Car::get();
         //選択したカレンダーの日程でガントチャートの表示を反映させる。
         //選択されていない場合は、現在の年月日を取得する。
         $calendar_date = isset($request->calendar_date) ? $request->calendar_date : date("Y-m-d");
-        // すべての車種情報を取得（セレクト用）
-        $cars = Car::get();
         //選択された日付の予約状況を取得
         $reserved = Reservation::whereDate('start_at','<=',$calendar_date)->whereDate('end_at','>=',$calendar_date)->get();
         //予約状況を配列で取得する方法
         $reserve_block = [];
         foreach($reserved as $item) {
-            // 開始時刻と終了時刻の差分（分）を計算
+            // $calendar_dateと開始の日付を比較し、異なる場合は該当日の00:00:00に設定。
             $first = new Carbon($item->start_at); 
+            $first_date = $first->format("Y-m-d");
+            if($first_date < $calendar_date) {
+                $first = Carbon::createMidnightDate($calendar_date);
+            };
+            //$calendar_dateと終了の日付を比較し異なる場合は該当日+1の00:00:00に設定。
             $second = new Carbon($item->end_at); 
+            $second_date = $second->format("Y-m-d");
+            if($second_date > $calendar_date) {
+                $second = Carbon::createMidnightDate($calendar_date);
+                $second->addDay();
+            };
+            // 開始時刻と終了時刻の差分（分）を計算
             $duration = $first->diffInMinutes($second);
             //['車種ID','時','分']のブロックを作成する
             $dt = $first;
@@ -40,8 +51,6 @@ class ReservationController extends Controller
                 $dt->addMinutes(15);
               }
         };
-
-        // dd($reserved);
 
         return view('pages.reservations',['calendar_date'=>$calendar_date,'cars'=>$cars,'reserved'=>$reserved, 'reserve_block'=>$reserve_block]);
     }
