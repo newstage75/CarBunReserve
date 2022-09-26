@@ -10,11 +10,16 @@
 <div class="m-3">
 <h1>{{  $calendar_date  }}の予約状況</h1>
 <!-- 将来的にはカレンダーを常に表示して選択できるようにしたい。 -->
-<form method="GET" action="/reservation">
-    <label for="start">日付選択:</label>
-    <input type="date" id="calendar_date" name="calendar_date" value="{{$calendar_date}}">
-    <button type="submit" class="ms-3">日付を切替える</button>
-</form>
+<div class="mb-1">
+    <form method="GET" action="/reservation" class="d-inline-block">
+        <label for="start">日付選択:</label>
+        <input type="date" id="calendar_date" name="calendar_date" value="{{$calendar_date}}">
+        <button type="submit" class="ms-3">日付を切替える</button>
+    </form>
+    <p class="d-float float-end align-text-bottom pt-2 mb-0">
+    <span class="span-vacant">■</span>：空きあり　<span class="span-reserved">■</span>：空きなし　<span class="span-myself">■</span>：予約済み（ご自身）
+    </p>
+</div>
 
 
 <reservation-time-table :cars-select='@json($cars)' :car-reserved='@json($reserved)' :reserve-block='@json($reserve_block)'></reservation-time-table>

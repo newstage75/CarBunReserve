@@ -8,7 +8,12 @@
     --body: #888;
     --box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
 
+    /* 空きあり・空きなし・自分自身の予約の色を変数定義 */
+    --vacant: rgba(0, 170, 255, 0.3);
+    --reserved:rgba(255, 115, 0, 0.5);
+    --myself: rgba(255, 0, 0, 0.5);
 }
+
 
 
 /* Google FontsのCSS rulesから */
@@ -58,6 +63,16 @@ section{
 }
 
 /* ガントチャート用のCSS */
+.span-reserved{
+ color: var(--reserved);
+}
+.span-vacant{
+ color: var(--vacant);
+}
+.span-myself{
+ color: var(--myself);
+}
+
 .gantt-parent{
     width: 100%;
 }
@@ -77,16 +92,16 @@ section{
 }
 
 .gantt-data{
-    background-color: rgba(0, 170, 255, 0.3);
+    background-color: var(--vacant);
 }
 
 /* 予約済みの色を変更 */
-.reserved{
-    background-color: rgba(255, 115, 0, 0.5);
+.gannt_reserved{
+    background-color: var(--reserved);
 }
 
-.myself{
-    background-color: rgba(255, 0, 0, 0.5);
+.gannt_myself{
+    background-color: var(--myself);
 }
 
 /* 予約確認画面 */

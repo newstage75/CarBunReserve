@@ -1,5 +1,5 @@
 <template> 
-<div class="mt-2 gantt-parent">
+<div class="mt-1 gantt-parent">
             <!-- デバッグ用 予約済みの配列を渡す -->
              <!-- <div class="bg-white border border-3 mb-3">
              <h4>デバッグ用Laravelから渡されたデータ群</h4>
@@ -17,7 +17,7 @@
             <tr v-for='car in carsSelect' :key="car.id">
                 <th class="border border-primary gantt-head">{{car.name}}</th>
                 <!-- keyの数字が被らないよう*100をして工夫 -->
-                <td class="border border-primary gantt-data" v-for="m in td_time" :key="m[0]*100+m[1]" :class="{ reserved: isReserved(car.id,m[0],m[1]) }" @mousedown="onMousedown(car.id,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])" ></td>
+                <td class="border border-primary gantt-data" v-for="m in td_time" :key="m[0]*100+m[1]" :class="{ gannt_reserved: isReserved(car.id,m[0],m[1]) }" @mousedown="onMousedown(car.id,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])" ></td>
             </tr>
         </table>
 
