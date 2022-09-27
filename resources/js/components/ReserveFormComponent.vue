@@ -1,14 +1,15 @@
 <template>
+    <div>
         <form method="POST" action="/reservation">
             <div>
                 <input type="hidden" name="_token" :value="csrf"></input>
                 <table>
                     <tr>
-                        <th colspan="4">【日付】　　{{ calendarDate }}の予約</th>
+                        <th colspan="4">【日付】{{ calendarDate }}の予約</th>
                     </tr>
                     <tr>
                         <th>【車種】</th>
-                        <td>
+                        <td class="pe-4">
                             <select name="car_sel" id="car_sel">
                                 <option value="">選択</option>
                                 <template v-for='car in carsSelect'>
@@ -16,8 +17,8 @@
                                 </template>
                             </select>
                         </td>
-                    </tr>
-                    <tr>
+                    <!-- </tr>
+                    <tr> -->
                         <th>【開始時刻】</th>
                         <input type="hidden" name="start_date" id="start_date" :value="calendarDate"></input>
                         <td>
@@ -49,10 +50,13 @@
                         </td>
                     </tr>
                 </table>
-                <textarea class="mt-2 memo-form" placeholder="使用用途を記入" name="memo" id="memo" cols="70" rows="5"></textarea>
             </div>
-            <button type="submit">予約する</button>
+            <div>
+                <textarea class="memo-form mt-1" placeholder="使用用途を記入" name="memo" id="memo" rows="4"></textarea>
+            </div>
+            <button type="submit" class="btn btn-secondary p-1 ms-1">予約する</button>
         </form>
+    </div>
 </template>
 
 <script>
