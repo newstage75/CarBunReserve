@@ -20,9 +20,11 @@ class ReservationController extends Controller
         $calendar_date = isset($request->calendar_date) ? $request->calendar_date : date("Y-m-d");
         //選択された日付の予約状況を取得
         $reserved = Reservation::whereDate('start_at','<=',$calendar_date)->whereDate('end_at','>=',$calendar_date)->get();
-        //予約状況を配列で取得する方法
+        //予約状況を配列で取得する[車種id,時,分,自他の予約(0-1)]
         $reserve_block = [];
         foreach($reserved as $item) {
+            // まず自分の予約か否かを判定
+            $is_myself = Auth::id() == $item->user_id ? 0 : 1;
             // $calendar_dateと開始の日付を比較し、異なる場合は該当日の00:00:00に設定。
             $first = new Carbon($item->start_at); 
             $first_date = $first->format("Y-m-d");
@@ -46,7 +48,7 @@ class ReservationController extends Controller
                 $hour = $dt->hour;
                 $mint = $dt->minute;
                 //配列の作成
-                $array = [$item->car_id, $hour, $mint];
+                $array = [$item->car_id, $hour, $mint,$is_myself];
                 array_push($reserve_block, $array);
                 $dt->addMinutes(15);
               }

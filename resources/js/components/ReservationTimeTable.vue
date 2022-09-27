@@ -17,7 +17,7 @@
             <tr v-for='car in carsSelect' :key="car.id">
                 <th class="border border-primary gantt-head">{{car.name}}</th>
                 <!-- keyの数字が被らないよう*100をして工夫 -->
-                <td class="border border-primary gantt-data" v-for="m in td_time" :key="m[0]*100+m[1]" :class="{ gannt_reserved: isReserved(car.id,m[0],m[1]) }" @mousedown="onMousedown(car.id,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])" ></td>
+                <td class="border border-primary gantt-data" v-for="m in td_time" :key="m[0]*100+m[1]" :class="{ gantt_myself: myReserved(car.id,m[0],m[1],m[2]), gantt_reserved: isReserved(car.id,m[0],m[1],m[2]) }" @mousedown="onMousedown(car.id,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])" ></td>
             </tr>
         </table>
 
@@ -58,10 +58,11 @@
             td_time:td_time,
             td_span:td_span,
 
-            //テスト用予約済みテーブルの配列[車種、時、分]でブロックごとに予約の有無を確認
-            // reserved:[[1,1,15],[1,1,30],[1,1,45],
-            //           [2,15,15],[2,15,30],[2,15,45],
-            //           [3,20,15],[3,20,30],[3,20,45]],
+            //テスト用予約済みテーブルの配列[車種,時,分,自他]でブロックごとに予約の有無を確認
+            // 自他は0で自分、1で他人の予約を表す。
+            // reserved:[[1,1,15,1],[1,1,30,1],[1,1,45,1],
+            //           [2,15,15,0],[2,15,30,0],[2,15,45,0],
+            //           [3,20,15,1],[3,20,30,1],[3,20,45,1]],
             
             reserved: this.reserveBlock,
 
@@ -111,10 +112,21 @@
                 document.getElementById('end_mint').value = this.e_m;
             },
             //予約されているか否かの確認
+            myReserved(car_id,m0,m1){ //車種、予約時間(m0時:m1分)に予約があるか確認
+                for (const block of this.reserved) {
+                    if(block[3] === 0){
+                        if(block[0]===car_id && block[1]===m0 && block[2]===m1){
+                            return true;
+                        }
+                    }
+                }
+            },
             isReserved(car_id,m0,m1){ //車種、予約時間(m0時:m1分)に予約があるか確認
                 for (const block of this.reserved) {
-                    if(block[0]===car_id && block[1]===m0 && block[2]===m1){
-                        return true;
+                    if(block[3] === 1){
+                        if(block[0]===car_id && block[1]===m0 && block[2]===m1){
+                            return true;
+                        }
                     }
                 }
             }
