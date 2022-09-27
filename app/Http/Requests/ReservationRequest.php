@@ -26,9 +26,14 @@ class ReservationRequest extends FormRequest
         $results = parent::all($key);
         // Carbonを用いて整形
         $results['start_at'] = $results['start_date'] .' '.$results['start_hour'].':'.$results['start_mint'];
-        $results['start_at'] = new Carbon($results['start_at']);
+        // 暫定的実装（nullでない場合にCarbonで整形）
+        if(isset($results['start_hour']) && isset($results['start_mint'])){
+            $results['start_at'] = new Carbon($results['start_at']);
+        };
         $results['end_at'] = $results['end_date'] .' '.$results['end_hour'].':'.$results['end_mint'];
-        $results['end_at'] = new Carbon($results['end_at']);
+        if(isset($results['start_hour']) && isset($results['start_mint'])){
+            $results['end_at'] = new Carbon($results['end_at']);
+        };
         return $results;
     }
 
