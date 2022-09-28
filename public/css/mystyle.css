@@ -8,7 +8,12 @@
     --body: #888;
     --box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
 
+    /* 空きあり・空きなし・自分自身の予約の色を変数定義 */
+    --vacant: rgba(0, 170, 255, 0.25);
+    --reserved:rgba(255, 115, 0, 0.5);
+    --myself: rgba(255, 0, 0, 0.5);
 }
+
 
 
 /* Google FontsのCSS rulesから */
@@ -41,14 +46,69 @@ section{
 }
 
 .navbar .nav-link{
-    color: #fff !important;
+    color: #fff;
     font-size: 14px;
     font-weight: 700;
     padding-top: 12px;
 }
 
+.nav-link:hover{
+    color: #2b7ffd;
+}
+
 .btn {
-    padding: 14px 18px;
+    padding: 8px 10px;
     border-width: 2px;
     border-radius: 0;
+}
+
+/* ガントチャート用のCSS */
+.span-reserved{
+ color: var(--reserved);
+}
+.span-vacant{
+ color: var(--vacant);
+}
+.span-myself{
+ color: var(--myself);
+}
+
+.gantt-parent{
+    width: 100%;
+}
+
+.gantt-chart{
+    max-width: 1920px;
+    overflow-x: scroll;
+}
+
+.time-head{
+    width: 50px;
+}
+
+.gantt-head{
+    background-color: #eee;
+    height: 30px;
+}
+
+.gantt-data{
+    background-color: var(--vacant);
+}
+
+/* 予約済みの色を変更 */
+.gantt_reserved{
+    background-color: var(--reserved);
+}
+
+.gantt_myself{
+    background-color: var(--myself);
+}
+
+/* 予約確認画面 */
+.td-text{
+    font-size: 1.2rem;
+}
+
+.memo-form{
+    width: 90%;
 }

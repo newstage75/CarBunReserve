@@ -28,11 +28,13 @@ class Reservation extends Model
         });
     }
 
+    //Userと1対多(belongsTo)
     public function user(): BelongsTo
     {
         return $this->belongsTo('App\Models\User');
     }
 
+    //Carと1対多(belongsTo)
     public function car(): BelongsTo
     {
         return $this->belongsTo('App\Models\Car');

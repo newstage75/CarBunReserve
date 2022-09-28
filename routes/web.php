@@ -24,7 +24,7 @@ use App\Http\Controllers\ReservationController;
 
 Route::get('/login', [App\Http\Controllers\Auth\LoginController::class,'showLoginForm'])->name('login');
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class,'login']);
-Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class,'logout'])->name('logout');
+Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class,'logout'])->name('logout');
 
 Route::get('/', function () {
     return redirect('/reservation');
@@ -33,3 +33,9 @@ Route::get('/', function () {
 
 Route::get('reservation', [ReservationController::class, 'index'])->middleware('auth'); // 入力フォーム
 Route::post('reservation', [ReservationController::class, 'store'])->middleware('auth');// 送信先
+
+Route::get('myreserve', [ReservationController::class, 'myreserve'])->middleware('auth'); // 自身の予約確認
+Route::post('myreserve/edit', [ReservationController::class, 'edit'])->middleware('auth'); // 自身の予約削除
+Route::post('myreserve/remove', [ReservationController::class, 'remove'])->middleware('auth'); // 自身の予約削除
+
+Route::get('users', [ReservationController::class, 'other'])->middleware('auth'); // ユーザー別の予約確認
