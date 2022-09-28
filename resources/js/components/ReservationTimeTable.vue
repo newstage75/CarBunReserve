@@ -20,7 +20,12 @@
                 <td class="border border-primary gantt-data" v-for="m in td_time" :key="m[0]*100+m[1]" :class="{ gantt_myself: myReserved(car.id,m[0],m[1],m[2]), gantt_reserved: isReserved(car.id,m[0],m[1],m[2]) }" @mousedown="onMousedown(car.id,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])" ></td>
             </tr>
         </table>
-
+        <nav aria-label="Page navigation example">
+        <ul class="pagination d-flex justify-content-between">
+            <li class="page-item"><a class="page-link" :href="prevDayUrl">&lt;&lt; 前日</a></li>
+            <li class="page-item"><a class="page-link" :href="nextDayUrl">翌日 &gt;&gt;</a></li>
+        </ul>
+        </nav>
     </div>
 </template>
 
@@ -37,6 +42,8 @@
 
     export default {
         props: {
+            prevCalendarDate: String,
+            nextCalendarDate: String,
             carsSelect: Array,
             carReserved: Array,
             reserveBlock: Array,
@@ -53,6 +60,10 @@
             s_m:"",
             e_h:"",
             e_m:"",
+            
+            //前日・翌日のリンク用
+            prevDayUrl :'/reservation?calendar_date='+this.prevCalendarDate,
+            nextDayUrl :'/reservation?calendar_date='+this.nextCalendarDate,
 
             //ガントチャート用時刻
             td_time:td_time,
@@ -129,6 +140,11 @@
                         }
                     }
                 }
+            },
+        },
+        filters:{
+            dayUri(date){
+                return '/reservation?calendar_date='+date;
             }
         },
     }

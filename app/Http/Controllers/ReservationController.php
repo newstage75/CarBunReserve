@@ -18,6 +18,8 @@ class ReservationController extends Controller
         //選択したカレンダーの日程でガントチャートの表示を反映させる。
         //選択されていない場合は、現在の年月日を取得する。
         $calendar_date = isset($request->calendar_date) ? $request->calendar_date : date("Y-m-d");
+        $prev_calendar_date=(date("Y-m-d", strtotime("$calendar_date -1 day")));
+        $next_calendar_date=(date("Y-m-d", strtotime("$calendar_date 1 day")));
         //選択された日付の予約状況を取得
         $reserved = Reservation::whereDate('start_at','<=',$calendar_date)->whereDate('end_at','>=',$calendar_date)->get();
         //予約状況を配列で取得する[車種id,時,分,自他の予約(0-1)]
@@ -53,9 +55,18 @@ class ReservationController extends Controller
                 $dt->addMinutes(15);
               }
         };
+        //Viewに渡す変数まとめ
+        $param = [
+            'calendar_date'=>$calendar_date,
+            'prev_calendar_date'=>$prev_calendar_date,
+            'next_calendar_date'=>$next_calendar_date,
+            'cars'=>$cars,
+            'reserved'=>$reserved,
+            'reserve_block'=>$reserve_block];
 
-        return view('pages.reservations',['calendar_date'=>$calendar_date,'cars'=>$cars,'reserved'=>$reserved, 'reserve_block'=>$reserve_block]);
+        return view('pages.reservations',$param);
     }
+
 
     public function store(ReservationRequest $request){
         // $start_at=$request->start_date.' '.$request->start_hour.':'.$request->start_mint;
@@ -72,13 +83,15 @@ class ReservationController extends Controller
         return back()->with('result', '予約が完了しました。');
     }
 
+
     //自身の予約確認用ページ
-    public function myreserve(Request $request){
+    public function myreserve(){
         $user = Auth()->user();
         $name = $user->name;
         $myreserve = Reservation::where('user_id',$user->id)->get();
         return view('pages.myreserve',['username'=>$name,'myreserve'=>$myreserve]);
     }
+
 
     public function edit(Request $request){
         $reserve = Reservation::find($request->id);
@@ -90,6 +103,7 @@ class ReservationController extends Controller
         return redirect('/myreserve');
     }
 
+
     public function remove(Request $request){
         //変更者一致かの認可
         $reserve = Reservation::find($request->id);
@@ -98,6 +112,7 @@ class ReservationController extends Controller
         Reservation::destroy($request->id);
         return redirect('/myreserve');
     }
+
 
     //ユーザー別の予約確認用ページ
     public function other(Request $request){

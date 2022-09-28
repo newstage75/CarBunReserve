@@ -46,6 +46,6 @@
         <span class="span-vacant">■</span>：空きあり　<span class="span-reserved">■</span>：空きなし　<span class="span-myself">■</span>：予約済み（ご自身）
     </p>
 </div>
-<reservation-time-table :cars-select='@json($cars)' :car-reserved='@json($reserved)' :reserve-block='@json($reserve_block)'></reservation-time-table>
+<reservation-time-table :prev-calendar-date='@json($prev_calendar_date)' :next-calendar-date='@json($next_calendar_date)' :cars-select='@json($cars)' :car-reserved='@json($reserved)' :reserve-block='@json($reserve_block)'></reservation-time-table>
 </div>
 @endsection
