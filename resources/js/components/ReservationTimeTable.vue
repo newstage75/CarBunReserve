@@ -1,24 +1,31 @@
 <template> 
-<div class="mt-2">
-        <table class="table table-bordered text-center" >
+<div class="mt-1 gantt-parent">
+            <!-- デバッグ用 予約済みの配列を渡す -->
+             <!-- <div class="bg-white border border-3 mb-3">
+             <h4>デバッグ用Laravelから渡されたデータ群</h4>
+             <div v-for='reserve in carReserved'>
+                <p :key="reserve.id">【車種ID】{{reserve.car_id}}【開始】{{reserve.start_at}}【終了】{{reserve.end_at}}</p>
+             </div>
+            <p>{{reserveBlock}}</p>
+             </div> -->
+        <!-- v-forを使った表現 -->
+        <table class="table table-bordered text-center gantt-chart">
             <tr class="gantt-head">
                 <th class="border border-primary">車種</th>
                 <th class="border border-primary time-head" v-for="n in 24" :key="n-1"  colspan="4">{{n-1}}時</th>
-        </tr>
-        <tr>
-            <th class="border border-primary gantt-head">車A</th>
-            <!-- keyの数字が被らないよう*100をして工夫 -->
-            <td class="border border-primary gantt-data" v-for="m in td_time" :key="m[0]*100+m[1]" :class="{ reserved: isReserved(1,m[0],m[1]) }" @mousedown="onMousedown(1,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])" ></td>
-        </tr>
-        <tr>
-            <th class="border border-primary  gantt-head">車B</th>
-            <td class="border border-primary gantt-data" v-for="m in td_time" :key="m[0]*100+m[1]" :class="{ reserved: isReserved(2,m[0],m[1]) }"  @mousedown="onMousedown(2,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])"></td>
-        </tr>
-        <tr>
-            <th class="border border-primary gantt-head">車C</th>
-            <td class="border border-primary gantt-data" v-for="m in td_time" :key="m[0]*100+m[1]" :class="{ reserved: isReserved(3,m[0],m[1]) }" @mousedown="onMousedown(3,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])"></td>
-        </tr>
+            </tr>
+            <tr v-for='car in carsSelect' :key="car.id">
+                <th class="border border-primary gantt-head">{{car.name}}</th>
+                <!-- keyの数字が被らないよう*100をして工夫 -->
+                <td class="border border-primary gantt-data" v-for="m in td_time" :key="m[0]*100+m[1]" :class="{ gantt_myself: myReserved(car.id,m[0],m[1],m[2]), gantt_reserved: isReserved(car.id,m[0],m[1],m[2]) }" @mousedown="onMousedown(car.id,m[0],m[1])" @mouseup="onMouseup(m[0],m[1])" ></td>
+            </tr>
         </table>
+        <nav aria-label="Page navigation example">
+        <ul class="pagination d-flex justify-content-between">
+            <li class="page-item"><a class="page-link" :href="prevDayUrl">&lt;&lt; 前日</a></li>
+            <li class="page-item"><a class="page-link" :href="nextDayUrl">翌日 &gt;&gt;</a></li>
+        </ul>
+        </nav>
     </div>
 </template>
 
@@ -34,6 +41,13 @@
     };
 
     export default {
+        props: {
+            prevCalendarDate: String,
+            nextCalendarDate: String,
+            carsSelect: Array,
+            carReserved: Array,
+            reserveBlock: Array,
+        },
         mounted() {
             console.log('ReservationTimeTable mounted.')
         },
@@ -46,15 +60,22 @@
             s_m:"",
             e_h:"",
             e_m:"",
+            
+            //前日・翌日のリンク用
+            prevDayUrl :'/reservation?calendar_date='+this.prevCalendarDate,
+            nextDayUrl :'/reservation?calendar_date='+this.nextCalendarDate,
 
             //ガントチャート用時刻
             td_time:td_time,
             td_span:td_span,
 
-            //テスト用予約済みテーブルの配列[車種、時、分]でブロックごとに予約の有無を確認
-            reserved:[[1,1,15],[1,1,30],[1,1,45],
-                      [2,15,15],[2,15,30],[2,15,45],
-                      [3,20,15],[3,20,30],[3,20,45]],
+            //テスト用予約済みテーブルの配列[車種,時,分,自他]でブロックごとに予約の有無を確認
+            // 自他は0で自分、1で他人の予約を表す。
+            // reserved:[[1,1,15,1],[1,1,30,1],[1,1,45,1],
+            //           [2,15,15,0],[2,15,30,0],[2,15,45,0],
+            //           [3,20,15,1],[3,20,30,1],[3,20,45,1]],
+            
+            reserved: this.reserveBlock,
 
             }
         },
@@ -90,10 +111,10 @@
                 }else{
                     this.e_m += 15;
                 }
-                //24時00分の時に、0時00分表示とする
-                if(this.e_h==24){
-                    this.e_h = 0;
-                }
+                //24時00分の時に、0時00分表示とする←24:45まで許容することで対応した
+                // if(this.e_h==24){
+                //     this.e_h = 0;
+                // }
 
                 // 表示の変更
                 document.getElementById('start_hour').value = this.s_h;
@@ -102,16 +123,28 @@
                 document.getElementById('end_mint').value = this.e_m;
             },
             //予約されているか否かの確認
-            // isReserved(m,m0,m1){
-            //     if(m0===20 && m1===45){
-            //         return true;
-            //     }
-            isReserved(car_id,m0,m1){ //車種、予約時間(m0時:m1分)に予約があるか確認
+            myReserved(car_id,m0,m1){ //車種、予約時間(m0時:m1分)に予約があるか確認
                 for (const block of this.reserved) {
-                    if(block[0]===car_id && block[1]===m0 && block[2]===m1){
-                        return true;
+                    if(block[3] === 0){
+                        if(block[0]===car_id && block[1]===m0 && block[2]===m1){
+                            return true;
+                        }
                     }
                 }
+            },
+            isReserved(car_id,m0,m1){ //車種、予約時間(m0時:m1分)に予約があるか確認
+                for (const block of this.reserved) {
+                    if(block[3] === 1){
+                        if(block[0]===car_id && block[1]===m0 && block[2]===m1){
+                            return true;
+                        }
+                    }
+                }
+            },
+        },
+        filters:{
+            dayUri(date){
+                return '/reservation?calendar_date='+date;
             }
         },
     }

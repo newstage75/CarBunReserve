@@ -2,7 +2,7 @@
 <!-- navbar section -->
 <nav class="navbar navbar-expand-lg navbar-light bg-dark py-3">
         <div class="container">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="reservation">
             <h2 class="text-white pt-1">CarBunBun社有車予約</h2>
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
